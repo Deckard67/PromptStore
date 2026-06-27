@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checklist Vibe Coding</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    header {
+      background: #111827;
+      color: #fff;
+      text-align: center;
+      padding: 32px 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 36px;
+    }
+
+    header p {
+      margin: 12px 0 0;
+      font-size: 18px;
+      color: #d1d5db;
+    }
+
+    main {
+      max-width: 980px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    section {
+      margin-bottom: 24px;
+      padding: 28px;
+      background: #fff;
+      border-left: 6px solid #2563eb;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    section.final {
+      background: #ecfdf5;
+      border-left-color: #10b981;
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: 26px;
+    }
+
+    .question {
+      margin: 0 0 18px;
+      font-size: 18px;
+      color: #4b5563;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    textarea {
+      box-sizing: border-box;
+      width: 100%;
+      min-height: 90px;
+      padding: 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font: inherit;
+      font-size: 16px;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border: 0;
+      border-radius: 8px;
+      background: #2563eb;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Checklist Vibe Coding</h1>
+    <p>Antes de crear una app con IA, definimos qué queremos construir.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>1. Problema</h2>
+      <p class="question">¿Qué problema queremos resolver con esta aplicación?</p>
+      <label for="problema">Descripción del problema</label>
+      <textarea id="problema" name="problema"></textarea>
+    </section>
+
+    <section>
+      <h2>2. Usuario</h2>
+      <p class="question">¿Quién va a usar esta app y en qué contexto?</p>
+      <label for="usuario">Usuario objetivo</label>
+      <textarea id="usuario" name="usuario"></textarea>
+    </section>
+
+    <section>
+      <h2>3. Funcionalidades principales</h2>
+      <p class="question">¿Qué acciones importantes podrá hacer el usuario?</p>
+      <label for="funcionalidades">Funcionalidades</label>
+      <textarea id="funcionalidades" name="funcionalidades"></textarea>
+    </section>
+
+    <section>
+      <h2>4. Datos que necesitamos guardar</h2>
+      <p class="question">¿Qué información necesita almacenar la aplicación?</p>
+      <label for="datos">Datos principales</label>
+      <textarea id="datos" name="datos"></textarea>
+    </section>
+
+    <section>
+      <h2>5. Login y usuarios</h2>
+      <p class="question">¿La app necesita registro, inicio de sesión o perfiles de usuario?</p>
+      <label for="login">Sistema de usuarios</label>
+      <textarea id="login" name="login"></textarea>
+    </section>
+
+    <section>
+      <h2>6. Pantallas de la app</h2>
+      <p class="question">¿Qué pantallas o secciones tendrá la aplicación?</p>
+      <label for="pantallas">Pantallas necesarias</label>
+      <textarea id="pantallas" name="pantallas"></textarea>
+    </section>
+
+    <section>
+      <h2>7. Parte pública y SEO</h2>
+      <p class="question">¿Habrá páginas visibles para cualquier persona o para buscadores?</p>
+      <label for="seo">Parte pública</label>
+      <textarea id="seo" name="seo"></textarea>
+    </section>
+
+    <section>
+      <h2>8. Uso de inteligencia artificial</h2>
+      <p class="question">¿Dónde aporta valor la IA dentro de la app?</p>
+      <label for="ia">Funciones con IA</label>
+      <textarea id="ia" name="ia"></textarea>
+    </section>
+
+    <section>
+      <h2>9. MVP o primera versión mínima</h2>
+      <p class="question">¿Cuál es la versión más pequeña que ya tendría sentido publicar?</p>
+      <label for="mvp">MVP</label>
+      <textarea id="mvp" name="mvp"></textarea>
+    </section>
+
+    <section>
+      <h2>10. Resultado final esperado</h2>
+      <p class="question">¿Qué queremos tener al terminar el proyecto?</p>
+      <label for="resultado">Resultado final</label>
+      <textarea id="resultado" name="resultado"></textarea>
+    </section>
+
+    <section class="final">
+      <h2>Explicación en lenguaje natural</h2>
+      <p class="question">Describe la app con tus palabras</p>
+      <label for="explicacion">Descripción</label>
+      <textarea id="explicacion" name="explicacion"></textarea>
+    </section>
+
+    <button type="button" onclick="alert('Checklist completada')">Completar checklist</button>
+  </main>
+</body>
+</html>

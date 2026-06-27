@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{margin:0;background:#f4f3ef}
+input,textarea,select,button{font-family:inherit;color:inherit}
+textarea{resize:vertical}
+::selection{background:#ddd8fb}
+::placeholder{color:#a8a59c}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#d9d5cc;border-radius:8px;border:3px solid #f4f3ef}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#f4f3ef;color:#1b1a18;font-family:Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:84px">
+
+<!-- ===================== HOME ===================== -->
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div data-screen-label="Home" style="animation:fadeUp .4s ease both">
+  <header style="max-width:1160px;margin:0 auto;padding:24px 32px;display:flex;align-items:center;justify-content:space-between">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="width:30px;height:30px;border-radius:8px;background:#5b50e0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:16px">P</div>
+      <span style="font-weight:800;font-size:18px;letter-spacing:-.02em">PromptStore</span>
+    </div>
+    <nav style="display:flex;align-items:center;gap:8px">
+      <a style="font-size:14px;font-weight:600;color:#5f5c55;padding:8px 12px;text-decoration:none;cursor:pointer">Cómo funciona</a>
+      <a style="font-size:14px;font-weight:600;color:#5f5c55;padding:8px 12px;text-decoration:none;cursor:pointer">Explorar</a>
+      <button onClick="{{ goAuthLogin }}" style="font-size:14px;font-weight:600;background:#fff;border:1px solid #e3dfd6;border-radius:9px;padding:9px 16px;cursor:pointer" style-hover="background:#faf9f6">Entrar</button>
+      <button onClick="{{ goAuthRegister }}" style="font-size:14px;font-weight:700;background:#5b50e0;color:#fff;border:none;border-radius:9px;padding:10px 18px;cursor:pointer" style-hover="background:#4a40c4">Crear cuenta</button>
+    </nav>
+  </header>
+
+  <section style="max-width:1160px;margin:0 auto;padding:64px 32px 40px;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center">
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:8px;background:#eeecfb;color:#5b50e0;font-weight:700;font-size:12.5px;padding:6px 12px;border-radius:999px;margin-bottom:24px">
+        <span style="width:6px;height:6px;border-radius:50%;background:#5b50e0"></span>Tu biblioteca de prompts de IA
+      </div>
+      <h1 style="font-size:54px;line-height:1.05;letter-spacing:-.035em;font-weight:800;margin-bottom:22px;text-wrap:balance">Guarda, mejora y comparte tus mejores prompts de IA.</h1>
+      <p style="font-size:18px;line-height:1.6;color:#5f5c55;max-width:480px;margin-bottom:32px">Deja de perder los prompts que funcionan en notas sueltas y capturas. Guárdalos en un solo sitio, mejóralos con IA y publica los mejores con una URL propia.</p>
+      <div style="display:flex;gap:12px;align-items:center">
+        <button onClick="{{ goAuthRegister }}" style="font-size:15px;font-weight:700;background:#5b50e0;color:#fff;border:none;border-radius:11px;padding:14px 26px;cursor:pointer" style-hover="background:#4a40c4">Empezar gratis</button>
+        <button onClick="{{ goPublicDemo }}" style="font-size:15px;font-weight:600;background:#fff;border:1px solid #e3dfd6;border-radius:11px;padding:14px 24px;cursor:pointer" style-hover="background:#faf9f6">Ver un prompt público →</button>
+      </div>
+      <p style="font-size:13px;color:#9b988f;margin-top:18px">Sin tarjeta · Para creadores, marketers, devs y curiosos de la IA.</p>
+    </div>
+
+    <div style="position:relative">
+      <div style="position:absolute;inset:0;background:radial-gradient(120% 120% at 70% 10%,#e9e6fb 0%,rgba(244,243,239,0) 60%);border-radius:24px"></div>
+      <div style="position:relative;background:#fff;border:1px solid #e7e4dd;border-radius:18px;box-shadow:0 20px 50px -22px rgba(27,26,24,.28);padding:18px">
+        <div style="display:flex;align-items:center;gap:8px;padding:4px 4px 14px;border-bottom:1px solid #f0ede6">
+          <span style="width:9px;height:9px;border-radius:50%;background:#e0a23a"></span>
+          <span style="font-size:13px;font-weight:700;color:#75726b">Mi biblioteca</span>
+          <span style="margin-left:auto;font-size:12px;color:#a8a59c">24 prompts</span>
+        </div>
+        <sc-for list="{{ heroCards }}" as="c" hint-placeholder-count="3">
+          <div style="display:flex;align-items:center;gap:12px;padding:13px 6px;border-bottom:1px solid #f4f1ea">
+            <span style="font-size:15px">{{ c.star }}</span>
+            <div style="flex:1;min-width:0">
+              <div style="font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.title }}</div>
+              <div style="font-size:12px;color:#9b988f">{{ c.cat }}</div>
+            </div>
+            <span style="font-size:11px;font-weight:700;color:#1f8a5b;background:#e3f3ea;padding:3px 8px;border-radius:999px">{{ c.tag }}</span>
+          </div>
+        </sc-for>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:14px;background:#5b50e0;color:#fff;border-radius:11px;padding:12px 14px">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8L12 2z"/></svg>
+          <span style="font-size:13px;font-weight:700">Mejorar con IA</span>
+          <span style="margin-left:auto;font-size:12px;opacity:.8">↵</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1160px;margin:0 auto;padding:48px 32px 72px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+    <sc-for list="{{ features }}" as="f" hint-placeholder-count="3">
+      <div style="background:#fff;border:1px solid #e7e4dd;border-radius:16px;padding:26px">
+        <div style="width:40px;height:40px;border-radius:11px;background:#eeecfb;color:#5b50e0;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-weight:800">{{ f.n }}</div>
+        <h3 style="font-size:17px;font-weight:700;letter-spacing:-.01em;margin-bottom:8px">{{ f.title }}</h3>
+        <p style="font-size:14px;line-height:1.6;color:#75726b">{{ f.desc }}</p>
+      </div>
+    </sc-for>
+  </section>
+
+  <footer style="border-top:1px solid #e7e4dd">
+    <div style="max-width:1160px;margin:0 auto;padding:28px 32px;display:flex;justify-content:space-between;align-items:center;color:#9b988f;font-size:13px">
+      <span>© 2026 PromptStore</span>
+      <span style="display:flex;gap:20px"><a style="color:#9b988f;text-decoration:none;cursor:pointer">Privacidad</a><a style="color:#9b988f;text-decoration:none;cursor:pointer">Términos</a></span>
+    </div>
+  </footer>
+</div>
+</sc-if>
+
+<!-- ===================== AUTH ===================== -->
+<sc-if value="{{ isAuth }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Auth" style="min-height:100vh;display:grid;grid-template-columns:1fr 1fr;animation:fadeUp .35s ease both">
+  <div style="display:flex;flex-direction:column;justify-content:center;padding:48px 7vw;max-width:560px;margin:0 auto;width:100%">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:48px;cursor:pointer" onClick="{{ goHome }}">
+      <div style="width:30px;height:30px;border-radius:8px;background:#5b50e0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:16px">P</div>
+      <span style="font-weight:800;font-size:18px;letter-spacing:-.02em">PromptStore</span>
+    </div>
+    <h1 style="font-size:30px;font-weight:800;letter-spacing:-.03em;margin-bottom:8px">{{ authTitle }}</h1>
+    <p style="font-size:15px;color:#75726b;margin-bottom:30px">{{ authSubtitle }}</p>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <sc-if value="{{ authIsRegister }}" hint-placeholder-val="{{ false }}">
+        <label style="font-size:13px;font-weight:700;color:#5f5c55">Nombre
+          <input placeholder="Tu nombre" style="display:block;width:100%;margin-top:7px;background:#fff;border:1px solid #e3dfd6;border-radius:10px;padding:13px 14px;font-size:15px" style-focus="border-color:#5b50e0;outline:none">
+        </label>
+      </sc-if>
+      <label style="font-size:13px;font-weight:700;color:#5f5c55">Email
+        <input type="email" placeholder="tu@email.com" style="display:block;width:100%;margin-top:7px;background:#fff;border:1px solid #e3dfd6;border-radius:10px;padding:13px 14px;font-size:15px" style-focus="border-color:#5b50e0;outline:none">
+      </label>
+      <label style="font-size:13px;font-weight:700;color:#5f5c55">Contraseña
+        <input type="password" placeholder="••••••••" style="display:block;width:100%;margin-top:7px;background:#fff;border:1px solid #e3dfd6;border-radius:10px;padding:13px 14px;font-size:15px" style-focus="border-color:#5b50e0;outline:none">
+      </label>
+      <button onClick="{{ goDash }}" style="margin-top:6px;font-size:15px;font-weight:700;background:#5b50e0;color:#fff;border:none;border-radius:10px;padding:14px;cursor:pointer" style-hover="background:#4a40c4">{{ authCta }}</button>
+    </div>
+
+    <div style="margin-top:24px;font-size:14px;color:#75726b">
+      <span>{{ authSwitchText }}</span>
+      <a onClick="{{ toggleAuth }}" style="color:#5b50e0;font-weight:700;cursor:pointer;margin-left:4px">{{ authSwitchCta }}</a>
+    </div>
+  </div>
+
+  <div style="background:#1b1a2e;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:48px">
+    <div style="position:absolute;inset:0;background:radial-gradient(90% 70% at 30% 20%,#3a2f7a 0%,rgba(27,26,46,0) 55%)"></div>
+    <div style="position:relative;max-width:380px">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#bdb4ff" style="margin-bottom:18px"><path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8L12 2z"/></svg>
+      <p style="color:#fff;font-size:24px;line-height:1.45;font-weight:600;letter-spacing:-.02em">«Por fin tengo todos mis prompts en un sitio. Entro, copio y a trabajar.»</p>
+      <p style="color:#9088c4;font-size:14px;margin-top:18px;font-weight:600">Workflow real de quien usa IA cada día</p>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ===================== DASHBOARD ===================== -->
+<sc-if value="{{ isDash }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Dashboard" style="display:grid;grid-template-columns:236px 1fr;min-height:100vh;animation:fadeUp .35s ease both">
+  <aside style="background:#fbfaf7;border-right:1px solid #e7e4dd;padding:22px 16px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh">
+    <div style="display:flex;align-items:center;gap:10px;padding:4px 8px;margin-bottom:24px;cursor:pointer" onClick="{{ goHome }}">
+      <div style="width:28px;height:28px;border-radius:8px;background:#5b50e0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px">P</div>
+      <span style="font-weight:800;font-size:16px;letter-spacing:-.02em">PromptStore</span>
+    </div>
+    <button onClick="{{ goEditorNew }}" style="display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px;font-weight:700;background:#5b50e0;color:#fff;border:none;border-radius:10px;padding:11px;cursor:pointer;margin-bottom:22px" style-hover="background:#4a40c4">+ Nuevo prompt</button>
+    <nav style="display:flex;flex-direction:column;gap:2px">
+      <sc-for list="{{ navItems }}" as="it" hint-placeholder-count="4">
+        <a onClick="{{ it.onClick }}" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;color:{{ it.color }};background:{{ it.bg }}">
+          <span style="width:16px;text-align:center">{{ it.icon }}</span>{{ it.label }}
+          <span style="margin-left:auto;font-size:12px;color:#a8a59c">{{ it.count }}</span>
+        </a>
+      </sc-for>
+    </nav>
+    <div style="margin-top:auto;display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:#fff;border:1px solid #eceae3">
+      <div style="width:30px;height:30px;border-radius:50%;background:#dcd8fb;color:#5b50e0;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px">DS</div>
+      <div style="min-width:0">
+        <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">David Serra</div>
+        <div style="font-size:11px;color:#9b988f">Plan gratuito</div>
+      </div>
+    </div>
+  </aside>
+
+  <main style="padding:34px 40px;max-width:980px">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px">
+      <div>
+        <h1 style="font-size:26px;font-weight:800;letter-spacing:-.03em">Hola, David 👋</h1>
+        <p style="font-size:14.5px;color:#75726b;margin-top:4px">Esto es lo que tienes guardado.</p>
+      </div>
+      <button onClick="{{ goEditorNew }}" style="font-size:14px;font-weight:700;background:#5b50e0;color:#fff;border:none;border-radius:10px;padding:11px 18px;cursor:pointer" style-hover="background:#4a40c4">+ Nuevo prompt</button>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:30px">
+      <sc-for list="{{ stats }}" as="s" hint-placeholder-count="3">
+        <div style="background:#fff;border:1px solid #e7e4dd;border-radius:14px;padding:18px 20px">
+          <div style="font-size:13px;font-weight:700;color:#9b988f;margin-bottom:8px">{{ s.label }}</div>
+          <div style="font-size:30px;font-weight:800;letter-spacing:-.03em">{{ s.value }}</div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+      <h2 style="font-size:17px;font-weight:800;letter-spacing:-.02em">{{ libraryTitle }}</h2>
+      <span style="font-size:13px;color:#a8a59c;font-weight:600">{{ libraryCount }}</span>
+      <div style="margin-left:auto;display:flex;gap:10px;align-items:center">
+        <div style="display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #e3dfd6;border-radius:9px;padding:9px 12px;width:230px" style-focus-within="border-color:#5b50e0">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#a8a59c" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+          <input value="{{ search }}" onInput="{{ onSearch }}" placeholder="Buscar…" style="border:none;outline:none;background:none;font-size:14px;width:100%">
+        </div>
+        <select value="{{ category }}" onChange="{{ onCategory }}" style="background:#fff;border:1px solid #e3dfd6;border-radius:9px;padding:9px 12px;font-size:14px;font-weight:600;cursor:pointer">
+          <sc-for list="{{ filterCats }}" as="c" hint-placeholder-count="5"><option value="{{ c.value }}">{{ c.label }}</option></sc-for>
+        </select>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <sc-for list="{{ viewPrompts }}" as="p" hint-placeholder-count="4">
+        <div style="display:flex;align-items:flex-start;gap:14px;background:#fff;border:1px solid #e7e4dd;border-radius:14px;padding:16px 18px" style-hover="border-color:#d4cfc4;box-shadow:0 6px 20px -14px rgba(27,26,24,.4)">
+          <div style="flex:1;min-width:0;cursor:pointer" onClick="{{ p.onOpen }}">
+            <div style="display:flex;align-items:center;gap:9px;margin-bottom:5px">
+              <h3 style="font-size:16px;font-weight:700;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.title }}</h3>
+              <sc-if value="{{ p.isPublic }}" hint-placeholder-val="{{ false }}"><span style="flex:none;font-size:11px;font-weight:700;color:#1f8a5b;background:#e3f3ea;padding:3px 8px;border-radius:999px">Público</span></sc-if>
+            </div>
+            <p style="font-size:13.5px;line-height:1.5;color:#75726b;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden">{{ p.description }}</p>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:#f1efe9;border:1px solid #e7e4dd;font-size:12px;font-weight:600;color:#5f5c55"><span style="width:6px;height:6px;border-radius:50%;background:{{ p.dot }}"></span>{{ p.catLabel }}</span>
+              <span style="font-size:12px;color:#a8a59c">{{ p.dateLabel }}</span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;flex:none">
+            <button onClick="{{ p.onFav }}" title="Favorito" style="width:34px;height:34px;border-radius:8px;border:1px solid #ece9e2;background:#fff;cursor:pointer;font-size:15px;color:{{ p.starColor }}" style-hover="background:#faf9f6">{{ p.star }}</button>
+            <button onClick="{{ p.onCopy }}" title="Copiar" style="display:flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:8px;border:1px solid #ece9e2;background:#fff;cursor:pointer;font-size:13px;font-weight:700;color:{{ p.copyColor }}" style-hover="background:#faf9f6">{{ p.copyLabel }}</button>
+          </div>
+        </div>
+      </sc-for>
+      <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="text-align:center;padding:60px 20px;background:#fff;border:1px dashed #ddd9cf;border-radius:14px">
+          <div style="font-size:15px;font-weight:700;margin-bottom:6px">Sin resultados</div>
+          <p style="font-size:14px;color:#9b988f">Prueba con otra búsqueda o crea un prompt nuevo.</p>
+        </div>
+      </sc-if>
+    </div>
+  </main>
+</div>
+</sc-if>
+
+<!-- ===================== EDITOR ===================== -->
+<sc-if value="{{ isEditor }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Editor" style="min-height:100vh;animation:fadeUp .35s ease both">
+  <header style="position:sticky;top:0;z-index:5;background:rgba(244,243,239,.85);backdrop-filter:blur(8px);border-bottom:1px solid #e7e4dd">
+    <div style="max-width:820px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;gap:14px">
+      <button onClick="{{ goDash }}" style="font-size:14px;font-weight:600;background:none;border:none;cursor:pointer;color:#75726b;padding:6px 8px" style-hover="color:#1b1a18">← Volver</button>
+      <span style="font-weight:800;font-size:15px;letter-spacing:-.01em">{{ editorTitle }}</span>
+      <div style="margin-left:auto;display:flex;gap:10px">
+        <button onClick="{{ goDash }}" style="font-size:14px;font-weight:600;background:#fff;border:1px solid #e3dfd6;border-radius:9px;padding:9px 16px;cursor:pointer" style-hover="background:#faf9f6">Cancelar</button>
+        <button onClick="{{ savePrompt }}" style="font-size:14px;font-weight:700;background:#5b50e0;color:#fff;border:none;border-radius:9px;padding:9px 18px;cursor:pointer" style-hover="background:#4a40c4">Guardar prompt</button>
+      </div>
+    </div>
+  </header>
+
+  <div style="max-width:820px;margin:0 auto;padding:32px 28px 60px">
+    <input value="{{ draftTitle }}" onInput="{{ onDraftTitle }}" placeholder="Título del prompt" style="width:100%;border:none;background:none;outline:none;font-size:30px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px">
+    <input value="{{ draftDescription }}" onInput="{{ onDraftDescription }}" placeholder="Descripción breve — para qué sirve este prompt" style="width:100%;border:none;background:none;outline:none;font-size:16px;color:#75726b;margin-bottom:22px">
+
+    <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:24px">
+      <select value="{{ draftCategory }}" onChange="{{ onDraftCategory }}" style="background:#fff;border:1px solid #e3dfd6;border-radius:9px;padding:9px 12px;font-size:14px;font-weight:600;cursor:pointer">
+        <sc-for list="{{ catOptions }}" as="c" hint-placeholder-count="5"><option value="{{ c.value }}">{{ c.label }}</option></sc-for>
+      </select>
+      <button onClick="{{ toggleDraftFav }}" style="display:flex;align-items:center;gap:8px;background:{{ favBg }};border:1px solid {{ favBorder }};border-radius:9px;padding:9px 14px;font-size:14px;font-weight:600;cursor:pointer;color:{{ favText }}"><span>{{ favStar }}</span>Favorito</button>
+      <button onClick="{{ toggleDraftPublic }}" style="display:flex;align-items:center;gap:8px;background:{{ pubBg }};border:1px solid {{ pubBorder }};border-radius:9px;padding:9px 14px;font-size:14px;font-weight:600;cursor:pointer;color:{{ pubText }}"><span style="width:8px;height:8px;border-radius:50%;background:{{ pubDot }}"></span>{{ pubLabel }}</button>
+    </div>
+
+    <sc-if value="{{ draftPublic }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#f0fbf5;border:1px solid #cdeadb;border-radius:12px;padding:14px 16px;margin-bottom:24px">
+        <div style="font-size:12px;font-weight:700;color:#1f8a5b;margin-bottom:6px">URL pública (SEO)</div>
+        <div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#3c8a64">
+          <span style="color:#a8a59c">promptstore.app/prompts/</span><input value="{{ draftSlug }}" onInput="{{ onDraftSlug }}" style="flex:1;border:none;background:none;outline:none;font-family:inherit;font-size:13px;color:#1f8a5b;font-weight:500">
+        </div>
+      </div>
+    </sc-if>
+
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+      <span style="font-size:13px;font-weight:700;color:#5f5c55">Texto del prompt</span>
+      <div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap">
+        <sc-for list="{{ aiButtons }}" as="b" hint-placeholder-count="4">
+          <button onClick="{{ b.onClick }}" style="display:flex;align-items:center;gap:7px;background:#eeecfb;color:#5b50e0;border:1px solid #ddd8fb;border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:700;cursor:pointer" style-hover="background:#e4e0fb">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8L12 2z"/></svg>{{ b.label }}
+          </button>
+        </sc-for>
+      </div>
+    </div>
+    <textarea value="{{ draftBody }}" onInput="{{ onDraftBody }}" placeholder="Escribe o pega aquí tu prompt…" style="width:100%;min-height:300px;background:#fff;border:1px solid #e3dfd6;border-radius:14px;padding:20px;font-family:'JetBrains Mono',monospace;font-size:14.5px;line-height:1.75;outline:none" style-focus="border-color:#5b50e0"></textarea>
+
+    <sc-if value="{{ aiOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:18px;background:#fff;border:1px solid #ddd8fb;border-radius:14px;box-shadow:0 12px 36px -22px rgba(91,80,224,.5);overflow:hidden;animation:fadeUp .3s ease both">
+        <div style="display:flex;align-items:center;gap:9px;padding:14px 18px;border-bottom:1px solid #f0ede6;background:#f8f7ff">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="#5b50e0"><path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8L12 2z"/></svg>
+          <span style="font-size:14px;font-weight:800;color:#5b50e0">{{ aiTypeLabel }}</span>
+          <button onClick="{{ closeAI }}" style="margin-left:auto;background:none;border:none;cursor:pointer;color:#a8a59c;font-size:18px;line-height:1">×</button>
+        </div>
+        <sc-if value="{{ aiLoading }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:28px 18px;display:flex;align-items:center;gap:12px;color:#75726b;font-size:14px">
+            <span style="width:18px;height:18px;border:2px solid #ddd8fb;border-top-color:#5b50e0;border-radius:50%;display:inline-block;animation:spin .7s linear infinite"></span>Generando con IA…
+          </div>
+        </sc-if>
+        <sc-if value="{{ aiDone }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:18px">
+            <sc-if value="{{ aiHasItems }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <sc-for list="{{ aiItems }}" as="v" hint-placeholder-count="3">
+                  <div style="background:#faf9f6;border:1px solid #ece9e2;border-radius:10px;padding:13px 15px">
+                    <div style="font-size:11px;font-weight:700;color:#5b50e0;margin-bottom:5px">{{ v.label }}</div>
+                    <div style="font-size:13.5px;line-height:1.6;color:#3a3833;font-family:'JetBrains Mono',monospace">{{ v.text }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{ aiHasText }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#faf9f6;border:1px solid #ece9e2;border-radius:10px;padding:15px;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.75;color:#3a3833;white-space:pre-wrap">{{ aiText }}</div>
+            </sc-if>
+            <div style="display:flex;gap:10px;margin-top:16px">
+              <button onClick="{{ applyAI }}" style="font-size:13.5px;font-weight:700;background:#5b50e0;color:#fff;border:none;border-radius:9px;padding:10px 16px;cursor:pointer" style-hover="background:#4a40c4">{{ aiApplyLabel }}</button>
+              <button onClick="{{ closeAI }}" style="font-size:13.5px;font-weight:600;background:#fff;border:1px solid #e3dfd6;border-radius:9px;padding:10px 16px;cursor:pointer" style-hover="background:#faf9f6">Descartar</button>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+
+<!-- ===================== PUBLIC PROMPT PAGE ===================== -->
+<sc-if value="{{ isPublic }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Public" style="min-height:100vh;animation:fadeUp .35s ease both">
+  <header style="border-bottom:1px solid #e7e4dd">
+    <div style="max-width:760px;margin:0 auto;padding:18px 28px;display:flex;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:10px;cursor:pointer" onClick="{{ goHome }}">
+        <div style="width:28px;height:28px;border-radius:8px;background:#5b50e0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px">P</div>
+        <span style="font-weight:800;font-size:16px;letter-spacing:-.02em">PromptStore</span>
+      </div>
+      <button onClick="{{ goAuthRegister }}" style="font-size:13.5px;font-weight:700;background:#5b50e0;color:#fff;border:none;border-radius:9px;padding:9px 16px;cursor:pointer" style-hover="background:#4a40c4">Guardar mis prompts</button>
+    </div>
+  </header>
+
+  <article style="max-width:760px;margin:0 auto;padding:48px 28px 80px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px">
+      <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;background:#eeecfb;color:#5b50e0;font-size:12.5px;font-weight:700"><span style="width:6px;height:6px;border-radius:50%;background:{{ pubPromptDot }}"></span>{{ pubPromptCat }}</span>
+      <span style="font-size:13px;color:#a8a59c">Actualizado el {{ pubPromptDate }}</span>
+    </div>
+    <h1 style="font-size:40px;line-height:1.1;font-weight:800;letter-spacing:-.035em;margin-bottom:18px;text-wrap:balance">{{ pubPromptTitle }}</h1>
+    <p style="font-size:18px;line-height:1.6;color:#5f5c55;margin-bottom:28px">{{ pubPromptDesc }}</p>
+
+    <div style="display:flex;align-items:center;gap:12px;padding:14px 0 26px;border-bottom:1px solid #ece9e2;margin-bottom:28px">
+      <div style="width:38px;height:38px;border-radius:50%;background:#dcd8fb;color:#5b50e0;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px">DS</div>
+      <div>
+        <div style="font-size:14px;font-weight:700">{{ pubPromptAuthor }}</div>
+        <div style="font-size:12.5px;color:#9b988f">Autor del prompt</div>
+      </div>
+    </div>
+
+    <h2 style="font-size:15px;font-weight:800;letter-spacing:-.01em;margin-bottom:12px">El prompt</h2>
+    <div style="position:relative;background:#1b1a2e;border-radius:16px;padding:24px 22px 22px;margin-bottom:14px">
+      <button onClick="{{ pubCopy }}" style="position:absolute;top:14px;right:14px;display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:8px 13px;font-size:12.5px;font-weight:700;cursor:pointer" style-hover="background:rgba(255,255,255,.18)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>{{ pubCopyLabel }}
+      </button>
+      <pre style="font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.8;color:#e8e6f5;white-space:pre-wrap;margin:0;max-width:92%">{{ pubPromptBody }}</pre>
+    </div>
+    <p style="font-size:13px;color:#a8a59c;margin-bottom:36px">Copia el prompt y pégalo en tu herramienta de IA favorita.</p>
+
+    <div style="background:#fff;border:1px solid #e7e4dd;border-radius:16px;padding:24px;display:flex;align-items:center;gap:20px">
+      <div style="flex:1">
+        <div style="font-size:16px;font-weight:800;letter-spacing:-.01em;margin-bottom:4px">¿Te ha servido este prompt?</div>
+        <p style="font-size:14px;color:#75726b">Crea tu cuenta y guarda los tuyos. Gratis.</p>
+      </div>
+      <button onClick="{{ goAuthRegister }}" style="font-size:14px;font-weight:700;background:#5b50e0;color:#fff;border:none;border-radius:10px;padding:12px 20px;cursor:pointer;flex:none" style-hover="background:#4a40c4">Empezar gratis</button>
+    </div>
+  </article>
+</div>
+</sc-if>
+
+<!-- ===================== SCREEN SWITCHER ===================== -->
+<div style="position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:4px;background:rgba(27,26,24,.92);backdrop-filter:blur(10px);border-radius:999px;padding:5px;box-shadow:0 10px 30px -10px rgba(0,0,0,.5)">
+  <sc-for list="{{ switcher }}" as="sw" hint-placeholder-count="5">
+    <button onClick="{{ sw.onClick }}" style="border:none;cursor:pointer;border-radius:999px;padding:8px 15px;font-size:12.5px;font-weight:700;font-family:Manrope,sans-serif;color:{{ sw.color }};background:{{ sw.bg }}">{{ sw.label }}</button>
+  </sc-for>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    screen: 'home',
+    authMode: 'register',
+    search: '',
+    category: 'all',
+    dashFilter: 'all',
+    copiedId: null,
+    pubCopied: false,
+    selectedId: 'p1',
+    draft: null,
+    ai: { open: false, type: null, loading: false, result: null },
+    prompts: [
+      { id:'p1', title:'Generador de artículos SEO optimizados', description:'Redacta artículos largos con estructura SEO, keywords y meta datos a partir de un tema.', category:'seo', favorite:true, isPublic:true, slug:'generador-articulos-seo-optimizados', author:'David Serra', date:'2026-06-12',
+        body:'Actúa como redactor SEO senior especializado en contenido evergreen.\n\nEscribe un artículo de 1.500 palabras sobre [TEMA] dirigido a [AUDIENCIA].\n\nRequisitos:\n- Título H1 con la keyword principal.\n- Introducción que enganche en las 2 primeras líneas.\n- Subtítulos H2 y H3 con keywords secundarias.\n- Párrafos cortos y lenguaje claro.\n- Termina con un CTA y una meta descripción de 155 caracteres.' },
+      { id:'p2', title:'Copy persuasivo para landing de venta', description:'Texto de venta con framework PAS para una página de aterrizaje.', category:'marketing', favorite:true, isPublic:false, slug:'', author:'David Serra', date:'2026-06-10',
+        body:'Actúa como copywriter de respuesta directa.\n\nEscribe el copy de una landing para vender [PRODUCTO] a [CLIENTE IDEAL].\n\nUsa el framework Problema–Agitación–Solución:\n1. Headline que nombre el deseo principal.\n2. Describe el problema y agítalo.\n3. Presenta el producto como la solución.\n4. 3 beneficios clave en bullets.\n5. CTA claro y sin fricción.' },
+      { id:'p3', title:'Refactor de código a versión limpia', description:'Reescribe una función para que sea legible, testeable y sin duplicación.', category:'programacion', favorite:false, isPublic:true, slug:'refactor-codigo-limpio', author:'David Serra', date:'2026-06-08',
+        body:'Eres un ingeniero senior obsesionado con el código limpio.\n\nRefactoriza el siguiente código:\n[PEGA TU CÓDIGO]\n\nObjetivos:\n- Nombres descriptivos.\n- Funciones pequeñas con una sola responsabilidad.\n- Elimina duplicación.\n- Explica cada cambio en una frase.\nDevuelve solo el código final y luego la lista de cambios.' },
+      { id:'p4', title:'Guion para Reels de 30 segundos', description:'Estructura un guion con gancho, desarrollo y CTA para vídeo corto.', category:'video', favorite:false, isPublic:false, slug:'', author:'David Serra', date:'2026-06-06',
+        body:'Actúa como guionista de contenido para redes.\n\nEscribe un guion de 30 segundos sobre [TEMA] para Instagram Reels.\n\nEstructura:\n- Gancho en los primeros 3 segundos.\n- 3 puntos rápidos con valor.\n- Cierre con CTA.\nIncluye indicaciones visuales entre corchetes.' },
+      { id:'p5', title:'Brief para imágenes de producto', description:'Prompt detallado para generar fotografía de producto realista.', category:'imagen', favorite:false, isPublic:false, slug:'', author:'David Serra', date:'2026-06-03',
+        body:'Genera una imagen de [PRODUCTO] como fotografía de producto profesional.\n\nDescripción: producto centrado sobre fondo neutro, luz suave lateral, sombra sutil, estilo editorial minimalista, alta nitidez, 35mm, relación 4:5.\nEvita: texto, marcas de agua, manos.' },
+      { id:'p6', title:'Resumen ejecutivo de reuniones', description:'Convierte notas largas en un resumen con decisiones y tareas.', category:'productividad', favorite:true, isPublic:false, slug:'', author:'David Serra', date:'2026-05-30',
+        body:'Resume las siguientes notas de reunión:\n[PEGA TUS NOTAS]\n\nDevuelve:\n1. Resumen en 3 líneas.\n2. Decisiones tomadas.\n3. Tareas con responsable y fecha.\n4. Temas pendientes para la próxima reunión.\nTono claro y directo.' },
+      { id:'p7', title:'Plan de clase interactivo', description:'Diseña una sesión de 60 min con objetivos, actividades y evaluación.', category:'educacion', favorite:false, isPublic:false, slug:'', author:'David Serra', date:'2026-05-28',
+        body:'Actúa como diseñador instruccional.\n\nCrea un plan de clase de 60 minutos sobre [TEMA] para [NIVEL].\n\nIncluye:\n- 2 objetivos de aprendizaje.\n- Calentamiento (5 min).\n- Actividad principal interactiva (35 min).\n- Práctica (15 min).\n- Evaluación rápida (5 min).' }
+    ]
+  };
+
+  cats = { marketing:'Marketing', escritura:'Escritura', programacion:'Programación', imagen:'Imagen', video:'Vídeo', educacion:'Educación', productividad:'Productividad', negocio:'Negocio', seo:'SEO', otros:'Otros' };
+  catDots = { marketing:'#d97757', escritura:'#5b50e0', programacion:'#2a6fdb', imagen:'#c2569e', video:'#e0a23a', educacion:'#1f8a5b', productividad:'#5b50e0', negocio:'#7a6a4f', seo:'#1f8a5b', otros:'#9b988f' };
+
+  go(screen){ this.setState({ screen, ai:{open:false,type:null,loading:false,result:null} }); try{ window.scrollTo(0,0); }catch(e){} }
+  slugify(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60); }
+  blankDraft(){ return { id:null, title:'', description:'', body:'', category:'marketing', favorite:false, isPublic:false, slug:'', author:'David Serra', date:'2026-06-19' }; }
+
+  openEditor(id){
+    const p = id ? this.state.prompts.find(x=>x.id===id) : null;
+    this.setState({ draft: p ? {...p} : this.blankDraft(), selectedId: id, screen:'editor', ai:{open:false,type:null,loading:false,result:null} });
+    try{ window.scrollTo(0,0); }catch(e){}
+  }
+  savePrompt(){
+    const d = this.state.draft; if(!d) { this.go('dashboard'); return; }
+    const slug = d.isPublic ? (d.slug || this.slugify(d.title)) : d.slug;
+    this.setState(s=>{
+      let prompts = s.prompts.slice();
+      if(d.id){ prompts = prompts.map(p=>p.id===d.id?{...d,slug}:p); }
+      else { prompts = [{...d, id:'p'+(Date.now()), slug}, ...prompts]; }
+      return { prompts, screen:'dashboard', ai:{open:false} };
+    });
+    try{ window.scrollTo(0,0); }catch(e){}
+  }
+  setField(k,v){ this.setState(s=>({ draft:{...s.draft,[k]:v} })); }
+  toggleDraftFav(){ this.setState(s=>({ draft:{...s.draft,favorite:!s.draft.favorite} })); }
+  toggleDraftPublic(){ this.setState(s=>{ const isP=!s.draft.isPublic; return { draft:{...s.draft,isPublic:isP, slug: isP&&!s.draft.slug?this.slugify(s.draft.title):s.draft.slug} }; }); }
+
+  toggleFav(id){ this.setState(s=>({ prompts:s.prompts.map(p=>p.id===id?{...p,favorite:!p.favorite}:p) })); }
+  copy(text,id){ try{ navigator.clipboard && navigator.clipboard.writeText(text); }catch(e){} this.setState({copiedId:id}); clearTimeout(this._c); this._c=setTimeout(()=>this.setState(s=>s.copiedId===id?{copiedId:null}:null),1400); }
+  pubCopyFn(text){ try{ navigator.clipboard && navigator.clipboard.writeText(text); }catch(e){} this.setState({pubCopied:true}); clearTimeout(this._pc); this._pc=setTimeout(()=>this.setState({pubCopied:false}),1400); }
+
+  runAI(type){
+    this.setState({ ai:{open:true,type,loading:true,result:null} });
+    clearTimeout(this._ai);
+    this._ai=setTimeout(()=>{ this.setState({ ai:{open:true,type,loading:false,result:this.aiResult(type)} }); }, 1050);
+  }
+  aiResult(type){
+    const d = this.state.draft || this.blankDraft();
+    if(type==='improve') return { text:'Actúa como [ROL EXPERTO] con experiencia demostrable en [ÁMBITO].\n\nObjetivo: '+(d.title||'[objetivo claro]')+'.\nContexto: [añade el contexto necesario].\n\nInstrucciones:\n1. Sé específico y evita generalidades.\n2. Usa un tono [profesional/cercano].\n3. Entrega el resultado en [formato].\n\nSi te falta información, pregúntame antes de responder.' };
+    if(type==='variants') return { items:[
+      { label:'Más breve', text:'Versión condensada del prompt, directa al grano y sin contexto innecesario.' },
+      { label:'Más detallada', text:'Versión ampliada con rol, contexto, restricciones y formato de salida explícito.' },
+      { label:'Más creativa', text:'Misma intención con un enfoque más original, metáforas y ejemplos inesperados.' }
+    ] };
+    if(type==='title') return { items:[
+      { label:'Opción 1', text:'Generador profesional de '+(this.cats[d.category]||'contenido').toLowerCase() },
+      { label:'Opción 2', text:'Plantilla lista para usar: '+(d.title||'tu prompt') },
+      { label:'Opción 3', text:(this.cats[d.category]||'Prompt')+' optimizado paso a paso' }
+    ] };
+    if(type==='category') return { text:'Categoría sugerida: '+(this.cats[d.category]||'Productividad')+'.\n\nEl contenido encaja con esta categoría por su temática y vocabulario.' };
+    return { text:'' };
+  }
+  applyAI(){
+    const ai=this.state.ai; if(!ai.result){ this.setState({ai:{open:false}}); return; }
+    this.setState(s=>{
+      let draft={...s.draft};
+      if(ai.type==='improve' && ai.result.text) draft.body=ai.result.text;
+      if(ai.type==='title' && ai.result.items) draft.title=ai.result.items[0].text;
+      if(ai.type==='variants' && ai.result.items) draft.body=ai.result.items[1].text;
+      if(ai.type==='category') { /* keep */ }
+      return { draft, ai:{open:false,type:null,loading:false,result:null} };
+    });
+  }
+
+  filtered(){
+    const { prompts, search, category, dashFilter } = this.state;
+    const q=(search||'').toLowerCase();
+    return prompts.filter(p=>{
+      if(dashFilter==='fav' && !p.favorite) return false;
+      if(dashFilter==='public' && !p.isPublic) return false;
+      if(category!=='all' && p.category!==category) return false;
+      if(q && !(p.title.toLowerCase().includes(q)||p.description.toLowerCase().includes(q)||p.body.toLowerCase().includes(q))) return false;
+      return true;
+    });
+  }
+  fmtDate(s){ const m=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic']; const d=new Date(s+'T00:00:00'); if(isNaN(d)) return s; return d.getDate()+' '+m[d.getMonth()]+' '+d.getFullYear(); }
+
+  renderVals(){
+    const st=this.state;
+    const ACC='#5b50e0';
+
+    const isHome=st.screen==='home', isAuth=st.screen==='auth', isDash=st.screen==='dashboard', isEditor=st.screen==='editor', isPublic=st.screen==='public';
+
+    const heroCards=[
+      {star:'★',title:'Generador de artículos SEO',cat:'SEO',tag:'Público'},
+      {star:'★',title:'Copy persuasivo para landing',cat:'Marketing',tag:'Favorito'},
+      {star:'☆',title:'Resumen ejecutivo de reuniones',cat:'Productividad',tag:'Privado'}
+    ];
+    const features=[
+      {n:'1',title:'Guarda y organiza',desc:'Todos tus prompts en una biblioteca privada, con categorías, búsqueda y favoritos.'},
+      {n:'2',title:'Mejora con IA',desc:'Mejora un prompt, genera variantes y deja que la IA sugiera título y categoría.'},
+      {n:'3',title:'Comparte con URL pública',desc:'Publica tus mejores prompts en una página propia optimizada para SEO.'}
+    ];
+
+    const authIsRegister=st.authMode==='register';
+
+    const fav=st.prompts.filter(p=>p.favorite).length;
+    const pub=st.prompts.filter(p=>p.isPublic).length;
+    const stats=[{label:'Prompts guardados',value:st.prompts.length},{label:'Favoritos',value:fav},{label:'Públicos',value:pub}];
+    const navDef=[
+      {key:'all',icon:'▣',label:'Biblioteca',count:st.prompts.length},
+      {key:'fav',icon:'★',label:'Favoritos',count:fav},
+      {key:'public',icon:'◉',label:'Públicos',count:pub}
+    ];
+    const navItems=navDef.map(n=>({ icon:n.icon,label:n.label,count:n.count,
+      color: st.dashFilter===n.key?ACC:'#5f5c55', bg: st.dashFilter===n.key?'#eeecfb':'transparent',
+      onClick:()=>this.setState({dashFilter:n.key}) }));
+
+    const filterCats=[{value:'all',label:'Todas las categorías'}].concat(Object.keys(this.cats).map(k=>({value:k,label:this.cats[k]})));
+    const catOptions=Object.keys(this.cats).map(k=>({value:k,label:this.cats[k]}));
+
+    const list=this.filtered();
+    const viewPrompts=list.map(p=>({
+      ...p,
+      catLabel:this.cats[p.category]||'Otros',
+      dot:this.catDots[p.category]||'#9b988f',
+      dateLabel:this.fmtDate(p.date),
+      star:p.favorite?'★':'☆',
+      starColor:p.favorite?'#e0a23a':'#c9c5bc',
+      copyLabel: st.copiedId===p.id?'Copiado ✓':'Copiar',
+      copyColor: st.copiedId===p.id?'#1f8a5b':'#5f5c55',
+      onOpen:()=>this.openEditor(p.id),
+      onFav:()=>this.toggleFav(p.id),
+      onCopy:()=>this.copy(p.body,p.id)
+    }));
+    const libTitleMap={all:'Tu biblioteca',fav:'Favoritos',public:'Prompts públicos'};
+    const libraryTitle=libTitleMap[st.dashFilter]||'Tu biblioteca';
+    const libraryCount=list.length+(list.length===1?' prompt':' prompts');
+    const isEmpty=list.length===0;
+
+    const d=st.draft||this.blankDraft();
+    const editorTitle=d.id?'Editar prompt':'Nuevo prompt';
+    const aiButtons=[
+      {label:'Mejorar',onClick:()=>this.runAI('improve')},
+      {label:'Variantes',onClick:()=>this.runAI('variants')},
+      {label:'Sugerir título',onClick:()=>this.runAI('title')},
+      {label:'Sugerir categoría',onClick:()=>this.runAI('category')}
+    ];
+    const ai=st.ai;
+    const aiTypeMap={improve:'Mejorar prompt',variants:'Generar variantes',title:'Sugerir título',category:'Proponer categoría'};
+    const aiApplyMap={improve:'Usar versión mejorada',variants:'Usar variante detallada',title:'Usar este título',category:'Aplicar categoría'};
+    const aiResult=ai.result||{};
+
+    const pp=st.prompts.find(p=>p.id===st.selectedId&&p.isPublic) || st.prompts.find(p=>p.isPublic) || st.prompts[0];
+
+    const swDef=[{k:'home',l:'Home'},{k:'auth',l:'Login'},{k:'dashboard',l:'Dashboard'},{k:'editor',l:'Editor'},{k:'public',l:'Público'}];
+    const switcher=swDef.map(s=>({ label:s.l, color: st.screen===s.k?'#1b1a18':'#cfccc4', bg: st.screen===s.k?'#fff':'transparent',
+      onClick:()=>{ if(s.k==='editor'){ if(!st.draft) this.openEditor(st.prompts[0].id); else this.go('editor'); } else if(s.k==='public'){ this.setState({selectedId:(pp&&pp.id)||'p1',screen:'public'}); try{window.scrollTo(0,0)}catch(e){} } else this.go(s.k); } }));
+
+    return {
+      isHome,isAuth,isDash,isEditor,isPublic,
+      heroCards,features,
+      goAuthLogin:()=>this.setState({screen:'auth',authMode:'login'}),
+      goAuthRegister:()=>this.setState({screen:'auth',authMode:'register'}),
+      goHome:()=>this.go('home'),
+      goPublicDemo:()=>{ this.setState({selectedId:'p1',screen:'public'}); try{window.scrollTo(0,0)}catch(e){} },
+      authIsRegister,
+      authTitle: authIsRegister?'Crea tu cuenta':'Bienvenido de nuevo',
+      authSubtitle: authIsRegister?'Empieza a guardar tus prompts en menos de un minuto.':'Inicia sesión para acceder a tu biblioteca.',
+      authCta: authIsRegister?'Crear cuenta':'Iniciar sesión',
+      authSwitchText: authIsRegister?'¿Ya tienes cuenta?':'¿Aún no tienes cuenta?',
+      authSwitchCta: authIsRegister?'Inicia sesión':'Créala gratis',
+      toggleAuth:()=>this.setState(s=>({authMode:s.authMode==='register'?'login':'register'})),
+      goDash:()=>this.go('dashboard'),
+      stats,navItems,filterCats,catOptions,viewPrompts,libraryTitle,libraryCount,isEmpty,
+      search:st.search,category:st.category,
+      onSearch:(e)=>this.setState({search:e.target.value}),
+      onCategory:(e)=>this.setState({category:e.target.value}),
+      goEditorNew:()=>this.openEditor(null),
+      editorTitle,
+      draftTitle:d.title,draftDescription:d.description,draftBody:d.body,draftCategory:d.category,draftSlug:d.slug,draftPublic:d.isPublic,
+      onDraftTitle:(e)=>this.setField('title',e.target.value),
+      onDraftDescription:(e)=>this.setField('description',e.target.value),
+      onDraftBody:(e)=>this.setField('body',e.target.value),
+      onDraftCategory:(e)=>this.setField('category',e.target.value),
+      onDraftSlug:(e)=>this.setField('slug',e.target.value),
+      toggleDraftFav:()=>this.toggleDraftFav(),
+      toggleDraftPublic:()=>this.toggleDraftPublic(),
+      favStar:d.favorite?'★':'☆',
+      favBg:d.favorite?'#fbf3e3':'#fff', favBorder:d.favorite?'#ecd8ab':'#e3dfd6', favText:d.favorite?'#b6822a':'#5f5c55',
+      pubLabel:d.isPublic?'Público':'Privado',
+      pubBg:d.isPublic?'#e9f6ef':'#fff', pubBorder:d.isPublic?'#bfe3cf':'#e3dfd6', pubText:d.isPublic?'#1f8a5b':'#5f5c55', pubDot:d.isPublic?'#1f8a5b':'#c9c5bc',
+      aiButtons,
+      savePrompt:()=>this.savePrompt(),
+      aiOpen:ai.open, aiLoading:ai.loading, aiDone:ai.open&&!ai.loading,
+      aiTypeLabel:aiTypeMap[ai.type]||'IA',
+      aiApplyLabel:aiApplyMap[ai.type]||'Aplicar',
+      aiHasItems:!!aiResult.items, aiItems:aiResult.items||[],
+      aiHasText:!!aiResult.text, aiText:aiResult.text||'',
+      applyAI:()=>this.applyAI(), closeAI:()=>this.setState({ai:{open:false,type:null,loading:false,result:null}}),
+      pubPromptTitle:pp.title, pubPromptDesc:pp.description, pubPromptBody:pp.body,
+      pubPromptCat:this.cats[pp.category]||'Otros', pubPromptDot:this.catDots[pp.category]||'#9b988f',
+      pubPromptDate:this.fmtDate(pp.date), pubPromptAuthor:pp.author,
+      pubCopyLabel: st.pubCopied?'Copiado ✓':'Copiar prompt',
+      pubCopy:()=>this.pubCopyFn(pp.body),
+      switcher
+    };
+  }
+}
+</script>
+</body>
+</html>
