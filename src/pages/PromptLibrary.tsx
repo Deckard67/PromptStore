@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { removePrompt, editPrompt } from '../../lib/actions/prompts';
 import { PromptItem } from '../lib/promptService';
 import { categories } from '../../lib/categories';
+import { useAuth } from '../hooks/useAuth';
 
 type PromptLibraryProps = {
   prompts: PromptItem[];
@@ -10,6 +11,7 @@ type PromptLibraryProps = {
 };
 
 export function PromptLibrary({ prompts, refreshPrompts }: PromptLibraryProps) {
+  const { user } = useAuth();
   const [busyId, setBusyId] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('Todas');
@@ -32,9 +34,11 @@ export function PromptLibrary({ prompts, refreshPrompts }: PromptLibraryProps) {
   })
 
   const handleToggleFavorite = async (prompt: PromptItem) => {
+    if (!user?.id) return
+
     setBusyId(prompt.id)
     try {
-      await editPrompt(prompt.id, { favorite: !prompt.favorite })
+      await editPrompt(prompt.id, { favorite: !prompt.favorite }, user.id)
       await refreshPrompts()
     } catch (error) {
       console.error('Error actualizando favorito:', error)
@@ -44,11 +48,12 @@ export function PromptLibrary({ prompts, refreshPrompts }: PromptLibraryProps) {
   }
 
   const handleDelete = async (prompt: PromptItem) => {
+    if (!user?.id) return
     if (!window.confirm(`¿Eliminar el prompt “${prompt.title}”?`)) return
 
     setBusyId(prompt.id)
     try {
-      await removePrompt(prompt.id)
+      await removePrompt(prompt.id, user.id)
       await refreshPrompts()
     } catch (error) {
       console.error('Error eliminando prompt:', error)

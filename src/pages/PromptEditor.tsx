@@ -65,15 +65,19 @@ export function PromptEditor({ refreshPrompts }: PromptEditorProps) {
 
     try {
       if (existingPrompt) {
-        await editPrompt(existingPrompt.id, {
-          title,
-          description,
-          content,
-          category,
-          favorite,
-          public: isPublic,
-          slug: existingPrompt.slug,
-        })
+        await editPrompt(
+          existingPrompt.id,
+          {
+            title,
+            description,
+            content,
+            category,
+            favorite,
+            public: isPublic,
+            slug: existingPrompt.slug,
+          },
+          user.id,
+        )
       } else {
         const slug = await generateUniqueSlug(title)
         await addPrompt({
@@ -173,7 +177,7 @@ export function PromptEditor({ refreshPrompts }: PromptEditorProps) {
               </div>
             ) : null}
           </div>
-          <div style={{ display: 'grid', gap: 18, gridTemplateColumns: '1fr 1fr' }}>
+          <div style={{ display: 'grid', gap: 18, gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
             <label style={{ display: 'grid', gap: 8, fontWeight: 700, color: '#4a473f' }}>
               Categoría
               <select className="select-field" value={category} onChange={(event) => setCategory(event.target.value)}>

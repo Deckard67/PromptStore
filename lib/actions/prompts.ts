@@ -17,5 +17,9 @@ export const getPublicPromptBySlug = async (slug: string) => fetchPublicPromptBy
 export const getPublicPrompts = async () => fetchPublicPrompts()
 
 export const addPrompt = async (payload: Omit<PromptRecord, 'id' | 'created_at' | 'updated_at'>) => createPrompt(payload)
-export const editPrompt = async (id: string, payload: Partial<Omit<PromptRecord, 'id' | 'user_id' | 'created_at' | 'updated_at'>>) => updatePrompt(id, payload)
-export const removePrompt = async (id: string) => deletePrompt(id)
+export const editPrompt = async (
+  id: string,
+  payload: Partial<Omit<PromptRecord, 'id' | 'user_id' | 'created_at' | 'updated_at'>>,
+  userId?: string,
+) => updatePrompt(id, payload, userId)
+export const removePrompt = async (id: string, userId?: string) => deletePrompt(id, userId)

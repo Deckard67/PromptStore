@@ -11,6 +11,10 @@ type ImprovePromptResponse = {
   improvedContent: string
 }
 
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000
+const RATE_LIMIT_MAX_REQUESTS = 20
+const rateLimitByUser = new Map<string, { count: number; resetAt: number }>()
+
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
@@ -91,6 +95,23 @@ const improvePrompt = async ({ title, description, content, category }: ImproveP
   return { improvedContent }
 }
 
+const checkRateLimit = (userId: string) => {
+  const now = Date.now()
+  const current = rateLimitByUser.get(userId)
+
+  if (!current || current.resetAt <= now) {
+    rateLimitByUser.set(userId, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS })
+    return true
+  }
+
+  if (current.count >= RATE_LIMIT_MAX_REQUESTS) {
+    return false
+  }
+
+  current.count += 1
+  return true
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
@@ -123,6 +144,10 @@ Deno.serve(async (req) => {
 
     if (userError || !userData.user) {
       return jsonResponse({ error: 'Invalid session' }, 401)
+    }
+
+    if (!checkRateLimit(userData.user.id)) {
+      return jsonResponse({ error: 'Rate limit exceeded' }, 429)
     }
 
     const payload = (await req.json()) as ImprovePromptRequest

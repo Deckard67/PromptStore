@@ -56,15 +56,31 @@ export const createPrompt = async (payload: Omit<PromptRecord, 'id' | 'created_a
   return data as PromptRecord
 }
 
-export const updatePrompt = async (id: string, payload: Partial<Omit<PromptRecord, 'id' | 'user_id' | 'created_at' | 'updated_at'>>) => {
-  const { data, error } = await supabase.from('prompts').update(payload).eq('id', id).select().single()
+export const updatePrompt = async (
+  id: string,
+  payload: Partial<Omit<PromptRecord, 'id' | 'user_id' | 'created_at' | 'updated_at'>>,
+  userId?: string,
+) => {
+  let query = supabase.from('prompts').update(payload).eq('id', id)
+
+  if (userId) {
+    query = query.eq('user_id', userId)
+  }
+
+  const { data, error } = await query.select().single()
 
   if (error) throw error
   return data as PromptRecord
 }
 
-export const deletePrompt = async (id: string) => {
-  const { error } = await supabase.from('prompts').delete().eq('id', id)
+export const deletePrompt = async (id: string, userId?: string) => {
+  let query = supabase.from('prompts').delete().eq('id', id)
+
+  if (userId) {
+    query = query.eq('user_id', userId)
+  }
+
+  const { error } = await query
 
   if (error) throw error
 }
