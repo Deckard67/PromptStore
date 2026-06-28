@@ -14,7 +14,10 @@ export function Home() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <div style={{ width: 36, height: 36, borderRadius: 11, background: '#5b50e0', color: '#fff', display: 'grid', placeItems: 'center', fontWeight: 800 }}>P</div>
             <div>
-              <div style={{ fontSize: 18, fontWeight: 800 }}>PromptStore</div>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
+                <span style={{ fontSize: 18, fontWeight: 800 }}>PromptStore</span>
+                <span style={{ color: '#6d6b63', fontSize: 13, fontWeight: 700 }}>Almacén de instrucciones para IA</span>
+              </div>
               <div style={{ color: '#6d6b63', fontSize: 13 }}>Tu biblioteca personal de prompts</div>
             </div>
           </div>

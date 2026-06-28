@@ -21,9 +21,10 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
     <div style={{ minHeight: '100vh', background: '#f5f3ee' }}>
       <header style={{ borderBottom: '1px solid #e6e3dc', background: '#fff' }}>
         <div style={{ maxWidth: 1180, margin: '0 auto', padding: '18px 22px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
-          <Link to="/app/dashboard" style={{ display: 'flex', alignItems: 'center', gap: 10, color: '#1a1916', fontWeight: 800, fontSize: 18 }}>
+          <Link to="/app/dashboard" style={{ display: 'flex', alignItems: 'center', gap: 10, color: '#1a1916', fontWeight: 800, fontSize: 18, flexWrap: 'wrap' }}>
             <span style={{ width: 30, height: 30, borderRadius: 10, background: '#5b50e0', color: '#fff', display: 'grid', placeItems: 'center' }}>P</span>
-            PromptStore
+            <span>PromptStore</span>
+            <span style={{ color: '#6d6b63', fontSize: 13, fontWeight: 700 }}>Almacén de instrucciones para IA</span>
           </Link>
           <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
             <span style={{ color: '#6d6b63', fontSize: 14 }}>{user.name}</span>
