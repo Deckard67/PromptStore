@@ -1,0 +1,1375 @@
+from pathlib import Path
+
+content = """PromptStore
+
+PromptStore es una aplicación web sencilla para guardar, organizar, mejorar y compartir prompts utilizados con herramientas de inteligencia artificial.
+
+El objetivo del proyecto es crear una primera versión funcional, clara y publicable online, sin sobrecomplicar la arquitectura ni añadir funcionalidades avanzadas antes de validar el producto básico.
+
+La aplicación debe permitir que un usuario pueda registrarse, iniciar sesión, guardar sus prompts, editarlos, copiarlos, marcarlos como favoritos y hacer públicos algunos de ellos mediante una URL propia optimizada para SEO.
+
+Este documento sirve como contexto general para cualquier herramienta de inteligencia artificial, editor de código asistido o sistema de vibe coding que vaya a ayudar a construir la aplicación.
+
+1. Contexto general del proyecto
+
+Los usuarios que trabajan con inteligencia artificial suelen acumular prompts útiles en lugares dispersos: notas del móvil, documentos, conversaciones antiguas, capturas de pantalla o archivos sueltos.
+
+PromptStore quiere resolver esa dispersión creando una biblioteca personal de prompts.
+
+La app debe ser práctica, rápida y fácil de usar. No debe convertirse en una red social, un marketplace complejo ni una plataforma hinchada de funciones. La prioridad es que el usuario pueda guardar, encontrar, mejorar y compartir prompts sin fricción.
+
+La aplicación tendrá dos partes principales:
+
+Una parte privada, donde cada usuario guarda y organiza sus prompts.
+
+Una parte pública, donde algunos prompts pueden compartirse mediante una página propia preparada para SEO.
+
+2. Objetivo de la aplicación
+
+El objetivo de PromptStore es permitir que cualquier usuario pueda:
+
+Registrarse.
+
+Iniciar sesión.
+
+Guardar prompts de inteligencia artificial.
+
+Organizarlos por categoría.
+
+Marcarlos como favoritos.
+
+Buscar prompts rápidamente.
+
+Copiar el texto completo de un prompt.
+
+Mejorar prompts con IA.
+
+Generar variantes de un prompt.
+
+Sugerir títulos mediante IA.
+
+Proponer categorías mediante IA.
+
+Hacer públicos algunos prompts.
+
+Compartir prompts mediante una URL propia.
+
+Publicar páginas públicas optimizadas para SEO.
+
+El resultado final esperado es una aplicación web funcional, sencilla, clara y publicable online.
+
+3. Usuario objetivo
+
+PromptStore está pensada para personas que usan inteligencia artificial de forma habitual.
+
+Usuarios principales:
+
+Creadores de contenido.
+
+Copywriters.
+
+Marketers.
+
+Guionistas.
+
+Docentes.
+
+Programadores.
+
+Diseñadores.
+
+Consultores.
+
+Estudiantes.
+
+Emprendedores.
+
+Usuarios habituales de herramientas como ChatGPT, Claude, Gemini, Midjourney, Runway, Perplexity u otras herramientas de IA.
+
+La aplicación no debe exigir conocimientos técnicos. La experiencia debe ser clara incluso para un usuario no especializado.
+
+4. Problema que resuelve
+
+El problema principal es la pérdida y desorganización de prompts útiles.
+
+PromptStore resuelve:
+
+La dispersión de prompts en diferentes lugares.
+
+La dificultad para recuperar prompts que ya funcionaron bien.
+
+La pérdida de tiempo reescribiendo instrucciones desde cero.
+
+La falta de estructura para clasificar prompts.
+
+La dificultad para compartir prompts de forma limpia.
+
+La ausencia de páginas públicas optimizadas para posicionamiento SEO.
+
+5. Principios del producto
+
+La aplicación debe seguir estos principios:
+
+Simplicidad antes que complejidad.
+
+Utilidad antes que decoración.
+
+MVP antes que producto completo.
+
+Arquitectura simple y mantenible.
+
+Pantallas claras.
+
+Acciones evidentes.
+
+Datos bien organizados.
+
+IA como ayuda, no como centro confuso de la aplicación.
+
+El usuario siempre debe conservar el control.
+
+Ninguna función de IA debe sobrescribir contenido sin permiso del usuario.
+
+No se deben añadir funciones grandes sin revisar antes el alcance.
+
+Cada cambio importante debe explicarse de forma sencilla.
+
+6. Funcionalidades del MVP
+
+La primera versión mínima debe incluir:
+
+Registro de usuarios.
+
+Inicio de sesión.
+
+Cierre de sesión.
+
+Área privada protegida.
+
+Dashboard privado.
+
+Biblioteca privada de prompts.
+
+Crear prompt.
+
+Editar prompt.
+
+Eliminar prompt.
+
+Ver detalle privado de un prompt.
+
+Buscar prompts.
+
+Filtrar por categoría.
+
+Filtrar por favoritos.
+
+Marcar prompts como favoritos.
+
+Copiar el texto completo de un prompt.
+
+Marcar un prompt como público o privado.
+
+Generar una URL pública para prompts públicos.
+
+Página pública individual para cada prompt compartido.
+
+Estructura SEO básica para cada página pública.
+
+Función de IA para mejorar prompts.
+
+Función de IA para sugerir títulos.
+
+Función de IA para proponer categorías.
+
+Función de IA para generar variantes.
+
+7. Funcionalidades que no forman parte del MVP
+
+No incluir en la primera versión:
+
+Marketplace de prompts.
+
+Sistema de pagos.
+
+Planes premium.
+
+Comentarios.
+
+Likes públicos.
+
+Valoraciones.
+
+Sistema de seguidores.
+
+Prompts colaborativos.
+
+Equipos de trabajo.
+
+Carpetas avanzadas.
+
+Etiquetas complejas.
+
+Historial de versiones.
+
+Analítica SEO avanzada.
+
+Panel de administración avanzado.
+
+Importación masiva.
+
+Extensión de navegador.
+
+Publicación automática en redes sociales.
+
+Sistema de permisos empresariales.
+
+Microservicios.
+
+Arquitectura compleja.
+
+Estas funciones pueden valorarse en fases posteriores.
+
+8. Pantallas principales
+
+8.1 Home pública
+
+Pantalla de entrada para visitantes.
+
+Debe explicar:
+
+Qué es PromptStore.
+
+Para quién sirve.
+
+Qué problema resuelve.
+
+Qué beneficios ofrece.
+
+Debe incluir llamadas a la acción:
+
+Crear cuenta.
+
+Iniciar sesión.
+
+Mensaje principal sugerido:
+
+“Guarda, mejora y comparte tus prompts de inteligencia artificial en un solo lugar.”
+
+8.2 Registro
+
+Pantalla para crear una cuenta.
+
+Campos mínimos:
+
+Nombre.
+
+Email.
+
+Contraseña.
+
+Debe incluir:
+
+Botón para crear cuenta.
+
+Enlace a login.
+
+Mensajes de error claros.
+
+8.3 Login
+
+Pantalla para iniciar sesión.
+
+Campos mínimos:
+
+Email.
+
+Contraseña.
+
+Debe incluir:
+
+Botón para iniciar sesión.
+
+Enlace a registro.
+
+Mensaje de error si los datos no son correctos.
+
+8.4 Dashboard privado
+
+Pantalla inicial tras iniciar sesión.
+
+Debe mostrar:
+
+Número total de prompts guardados.
+
+Número de prompts favoritos.
+
+Últimos prompts creados o modificados.
+
+Acceso rápido a crear prompt.
+
+Acceso a biblioteca completa.
+
+Acceso a favoritos.
+
+8.5 Biblioteca de prompts
+
+Pantalla principal de trabajo.
+
+Debe incluir:
+
+Listado de prompts.
+
+Buscador.
+
+Filtro por categoría.
+
+Filtro por favoritos.
+
+Filtro por públicos.
+
+Filtro por privados.
+
+Botón para crear prompt.
+
+Cada prompt debe mostrar:
+
+Título.
+
+Descripción breve.
+
+Categoría.
+
+Estado favorito.
+
+Estado público o privado.
+
+Fecha de última modificación.
+
+Acciones rápidas:
+
+Ver detalle.
+
+Copiar.
+
+Editar.
+
+Marcar favorito.
+
+8.6 Crear prompt
+
+Formulario para crear un nuevo prompt.
+
+Campos:
+
+Título.
+
+Descripción.
+
+Texto completo del prompt.
+
+Categoría.
+
+Favorito: sí/no.
+
+Público: sí/no.
+
+Opciones de IA:
+
+Mejorar prompt.
+
+Sugerir título.
+
+Sugerir categoría.
+
+Generar variantes.
+
+8.7 Editar prompt
+
+Formulario para modificar un prompt existente.
+
+Debe reutilizar la estructura de creación, pero cargando los datos guardados.
+
+Debe permitir:
+
+Modificar título.
+
+Modificar descripción.
+
+Modificar texto.
+
+Modificar categoría.
+
+Cambiar favorito.
+
+Cambiar público/privado.
+
+Usar funciones de IA.
+
+Guardar cambios.
+
+Cancelar.
+
+8.8 Detalle privado del prompt
+
+Pantalla interna para ver un prompt completo.
+
+Debe mostrar:
+
+Título.
+
+Descripción.
+
+Texto completo del prompt.
+
+Categoría.
+
+Estado favorito.
+
+Estado público o privado.
+
+URL pública, si existe.
+
+Fecha de creación.
+
+Fecha de última modificación.
+
+Acciones:
+
+Copiar prompt.
+
+Editar prompt.
+
+Eliminar prompt.
+
+Marcar o desmarcar favorito.
+
+Hacer público o privado.
+
+Copiar URL pública.
+
+Mejorar con IA.
+
+Generar variantes.
+
+8.9 Página pública de prompt
+
+Pantalla visible sin login para prompts públicos.
+
+Debe estar preparada para SEO.
+
+Debe mostrar:
+
+Título del prompt.
+
+Descripción.
+
+Categoría.
+
+Texto completo del prompt.
+
+Botón para copiar.
+
+Fecha de publicación o actualización.
+
+Nombre del autor, si se decide mostrar.
+
+Debe incluir:
+
+URL limpia y legible.
+
+Título SEO.
+
+Meta descripción.
+
+H1 claro.
+
+Estructura HTML clara.
+
+Ejemplo conceptual de URL:
+
+/prompts/generador-de-articulos-seo
+
+8.10 Perfil de usuario
+
+Pantalla básica de cuenta.
+
+Debe mostrar:
+
+Nombre.
+
+Email.
+
+Opción de editar nombre.
+
+Opción de cerrar sesión.
+
+Cambio de contraseña si se decide incluir.
+
+8.11 Estados vacíos y errores
+
+Estados vacíos necesarios:
+
+Usuario sin prompts.
+
+Búsqueda sin resultados.
+
+Sin favoritos.
+
+Sin prompts públicos.
+
+Errores necesarios:
+
+Prompt no encontrado.
+
+Ruta privada sin sesión.
+
+Error al guardar.
+
+Error al cargar datos.
+
+Error al usar IA.
+
+9. Flujos de usuario
+
+9.1 Usuario nuevo se registra
+
+El usuario entra en la home pública.
+
+Lee la propuesta de valor.
+
+Pulsa crear cuenta.
+
+Introduce nombre, email y contraseña.
+
+Crea la cuenta.
+
+Accede al dashboard privado.
+
+Ve un estado vacío que le invita a crear su primer prompt.
+
+Resultado esperado:
+
+El usuario entiende la app y entra en su espacio privado sin fricción.
+
+9.2 Usuario recurrente inicia sesión
+
+El usuario entra en login.
+
+Introduce email y contraseña.
+
+Accede al dashboard.
+
+Ve sus últimos prompts y favoritos.
+
+Resultado esperado:
+
+El usuario accede rápido a su biblioteca.
+
+9.3 Usuario crea un prompt
+
+El usuario pulsa crear prompt.
+
+Escribe o pega el texto del prompt.
+
+Añade título.
+
+Añade descripción.
+
+Selecciona categoría.
+
+Decide si lo marca como favorito.
+
+Decide si será público o privado.
+
+Guarda.
+
+Ve el detalle del prompt creado.
+
+Resultado esperado:
+
+El prompt queda guardado y asociado al usuario.
+
+9.4 Usuario mejora un prompt con IA
+
+El usuario abre crear o editar prompt.
+
+Pulsa mejorar con IA.
+
+La IA propone una versión mejorada.
+
+El usuario compara original y sugerencia.
+
+El usuario acepta, copia o descarta la sugerencia.
+
+Resultado esperado:
+
+La IA ayuda sin sobrescribir nada automáticamente.
+
+9.5 Usuario genera variantes
+
+El usuario abre un prompt.
+
+Pulsa generar variantes.
+
+La IA genera varias versiones.
+
+El usuario puede copiar una variante.
+
+El usuario puede guardar una variante como nuevo prompt.
+
+Resultado esperado:
+
+El usuario obtiene alternativas útiles sin perder el prompt original.
+
+9.6 Usuario busca y reutiliza un prompt
+
+El usuario entra en biblioteca.
+
+Busca por palabra clave o usa filtros.
+
+Encuentra el prompt.
+
+Pulsa copiar.
+
+Usa el prompt en otra herramienta de IA.
+
+Resultado esperado:
+
+El usuario recupera un prompt en pocos segundos.
+
+9.7 Usuario marca favorito
+
+El usuario pulsa favorito desde biblioteca o detalle.
+
+El prompt queda destacado.
+
+Aparece en favoritos y en el dashboard.
+
+Resultado esperado:
+
+El usuario accede rápido a sus prompts más usados.
+
+9.8 Usuario hace público un prompt
+
+El usuario abre un prompt.
+
+Activa la opción público.
+
+La app genera un slug.
+
+La app crea una URL pública.
+
+El usuario copia la URL.
+
+Resultado esperado:
+
+El prompt puede compartirse mediante una página pública.
+
+9.9 Visitante abre un prompt público
+
+El visitante abre la URL pública.
+
+Lee el título, descripción y categoría.
+
+Ve el texto completo del prompt.
+
+Pulsa copiar.
+
+Puede ir a la home para crear cuenta.
+
+Resultado esperado:
+
+La página pública sirve para compartir y captar usuarios.
+
+9.10 Usuario elimina un prompt
+
+El usuario abre un prompt.
+
+Pulsa eliminar.
+
+La app muestra confirmación.
+
+El usuario confirma.
+
+El prompt desaparece.
+
+Si era público, la URL pública deja de mostrarlo.
+
+Resultado esperado:
+
+El usuario puede borrar contenido con seguridad.
+
+10. Modelo de datos conceptual
+
+No incluir código todavía. Este modelo es conceptual.
+
+10.1 Usuario
+
+Representa a cada persona registrada.
+
+Campos:
+
+ID de usuario.
+
+Nombre.
+
+Email.
+
+Contraseña gestionada por el sistema de autenticación.
+
+Fecha de creación.
+
+Fecha de último acceso, opcional.
+
+Relaciones:
+
+Un usuario puede tener muchos prompts.
+
+10.2 Prompt
+
+Representa cada prompt guardado.
+
+Campos:
+
+ID del prompt.
+
+ID del usuario propietario.
+
+Título.
+
+Descripción.
+
+Texto completo del prompt.
+
+Categoría.
+
+Favorito: sí/no.
+
+Público: sí/no.
+
+Slug público.
+
+Título SEO.
+
+Meta descripción SEO.
+
+Fecha de creación.
+
+Fecha de última modificación.
+
+Relaciones:
+
+Cada prompt pertenece a un usuario.
+
+Cada prompt puede ser privado o público.
+
+Cada prompt puede tener una categoría.
+
+10.3 Categoría
+
+Para el MVP, la categoría puede ser un campo simple dentro del prompt.
+
+Categorías iniciales sugeridas:
+
+Marketing.
+
+Escritura.
+
+Programación.
+
+Imagen.
+
+Vídeo.
+
+Educación.
+
+Productividad.
+
+Negocio.
+
+SEO.
+
+Otros.
+
+En una versión posterior, las categorías podrían convertirse en una entidad propia.
+
+10.4 Página pública de prompt
+
+No es necesario crear una entidad separada en el MVP.
+
+Puede generarse a partir del prompt cuando el campo público está activado.
+
+Campos relevantes:
+
+Prompt público.
+
+Slug.
+
+Título SEO.
+
+Meta descripción.
+
+Fecha de publicación o actualización.
+
+Estado indexable.
+
+10.5 Sugerencias de IA
+
+En el MVP no es necesario guardar el historial de sugerencias de IA.
+
+Las sugerencias pueden ser temporales.
+
+Más adelante podría añadirse:
+
+ID de sugerencia.
+
+ID del prompt.
+
+Tipo de sugerencia.
+
+Texto generado.
+
+Fecha.
+
+Estado: aceptada, descartada o copiada.
+
+No incluir esto en el MVP salvo que sea estrictamente necesario.
+
+11. SEO y parte pública
+
+La parte pública debe existir desde el MVP.
+
+Elementos necesarios:
+
+Home pública.
+
+Páginas públicas individuales para prompts compartidos.
+
+URLs limpias.
+
+Título SEO.
+
+Meta descripción.
+
+H1 claro.
+
+Descripción visible.
+
+Categoría visible.
+
+Texto del prompt.
+
+Botón copiar.
+
+Llamada a crear cuenta.
+
+Las páginas públicas deben poder crecer en el futuro con:
+
+Categorías públicas.
+
+Prompts destacados.
+
+Páginas de casos de uso.
+
+Blog o guías.
+
+Pero para el MVP basta con home pública y páginas públicas individuales.
+
+12. Funciones de IA
+
+Las funciones de IA deben integrarse en el flujo de creación y edición de prompts.
+
+12.1 Mejorar prompt
+
+Objetivo:
+
+Convertir un prompt básico en una versión más clara, útil y estructurada.
+
+Regla:
+
+No sobrescribir el texto original sin confirmación del usuario.
+
+12.2 Generar variantes
+
+Objetivo:
+
+Crear versiones alternativas de un prompt.
+
+Variantes recomendadas:
+
+Breve.
+
+Detallada.
+
+Creativa.
+
+Profesional.
+
+Orientada a SEO, si procede.
+
+12.3 Sugerir título
+
+Objetivo:
+
+Proponer títulos claros para prompts genéricos o mal nombrados.
+
+12.4 Proponer categoría
+
+Objetivo:
+
+Analizar el contenido del prompt y sugerir una categoría adecuada.
+
+12.5 Generar descripción
+
+Función recomendable, pero opcional para el MVP.
+
+Objetivo:
+
+Crear una descripción breve que ayude a entender para qué sirve el prompt.
+
+13. Arquitectura y criterios técnicos
+
+No construir una arquitectura compleja.
+
+Usar una estructura simple:
+
+Frontend web.
+
+Sistema de autenticación.
+
+Base de datos.
+
+Backend o servicios necesarios para guardar datos y conectar IA.
+
+API o función para llamadas a IA.
+
+Plataforma de despliegue.
+
+Evitar en el MVP:
+
+Microservicios.
+
+Arquitecturas empresariales.
+
+Roles avanzados.
+
+Permisos complejos.
+
+Paneles de administración innecesarios.
+
+Sistemas de pago.
+
+Colaboración entre equipos.
+
+El objetivo técnico es una aplicación mantenible, clara y fácil de desplegar.
+
+14. Fases de desarrollo
+
+Fase 0. Definición funcional
+
+Objetivo:
+
+Aclarar el producto antes de construir.
+
+Resultado:
+
+Briefing funcional cerrado.
+
+Pantallas definidas.
+
+MVP definido.
+
+Modelo de datos conceptual.
+
+Fase 1. Prototipo visual navegable
+
+Objetivo:
+
+Crear las pantallas principales con datos ficticios.
+
+Resultado:
+
+Prototipo navegable sin lógica real.
+
+Validar antes de avanzar:
+
+Que los flujos se entienden.
+
+Que no hay pantallas innecesarias.
+
+Que la navegación es clara.
+
+Fase 2. Modelo de datos
+
+Objetivo:
+
+Definir usuarios, prompts, categorías y campos SEO.
+
+Resultado:
+
+Estructura conceptual de datos clara.
+
+Validar antes de avanzar:
+
+Que cada prompt pertenece a un usuario.
+
+Que privado y público están bien diferenciados.
+
+Fase 3. Autenticación
+
+Objetivo:
+
+Permitir registro, login y cierre de sesión.
+
+Resultado:
+
+Área privada protegida.
+
+Validar antes de avanzar:
+
+Que un usuario sin sesión no accede a zonas privadas.
+
+Fase 4. CRUD de prompts
+
+Objetivo:
+
+Construir el núcleo de la app.
+
+Resultado:
+
+Crear, ver, editar y eliminar prompts reales.
+
+Validar antes de avanzar:
+
+Que cada usuario solo ve sus propios prompts.
+
+Fase 5. Búsqueda, filtros y favoritos
+
+Objetivo:
+
+Facilitar la recuperación de prompts.
+
+Resultado:
+
+Biblioteca útil para uso diario.
+
+Validar antes de avanzar:
+
+Que encontrar un prompt es rápido.
+
+Fase 6. Parte pública y SEO
+
+Objetivo:
+
+Permitir compartir prompts públicos.
+
+Resultado:
+
+Cada prompt público tiene URL propia y página SEO.
+
+Validar antes de avanzar:
+
+Que los prompts privados no son accesibles públicamente.
+
+Fase 7. Funciones de IA
+
+Objetivo:
+
+Añadir valor mediante IA.
+
+Resultado:
+
+Mejorar prompts, generar variantes, sugerir títulos y categorías.
+
+Validar antes de avanzar:
+
+Que la IA ayuda y no confunde.
+
+Fase 8. Pulido UX
+
+Objetivo:
+
+Mejorar claridad, textos, errores y responsive.
+
+Resultado:
+
+App usable y presentable.
+
+Validar antes de avanzar:
+
+Que alguien externo puede usar la app sin explicación.
+
+Fase 9. Preparación para publicación
+
+Objetivo:
+
+Dejar la app lista para estar online.
+
+Resultado:
+
+Versión desplegada en entorno público.
+
+Validar antes de avanzar:
+
+Que login, base de datos, páginas públicas y privacidad funcionan online.
+
+Fase 10. Validación con usuarios reales
+
+Objetivo:
+
+Probar la app antes de ampliarla.
+
+Resultado:
+
+Feedback real y lista de mejoras priorizadas.
+
+Validar antes de avanzar:
+
+Que el usuario entiende, guarda, encuentra, mejora y comparte prompts.
+
+Fase 11. Primera versión publicable
+
+Objetivo:
+
+Cerrar una beta o primera versión pública.
+
+Resultado:
+
+PromptStore listo para enseñarse o lanzarse.
+
+15. Checklist general del MVP
+
+La app puede considerarse MVP cuando cumple:
+
+El usuario puede registrarse.
+
+El usuario puede iniciar sesión.
+
+El usuario puede cerrar sesión.
+
+El usuario puede crear un prompt.
+
+El usuario puede editar un prompt.
+
+El usuario puede eliminar un prompt.
+
+El usuario puede ver su biblioteca.
+
+El usuario puede buscar prompts.
+
+El usuario puede filtrar por categoría.
+
+El usuario puede marcar favoritos.
+
+El usuario puede copiar un prompt.
+
+El usuario puede marcar un prompt como público.
+
+La app genera una URL pública.
+
+Un visitante puede ver un prompt público sin login.
+
+Un visitante puede copiar un prompt público.
+
+Los prompts privados no son visibles públicamente.
+
+Cada página pública tiene título SEO.
+
+Cada página pública tiene meta descripción.
+
+Cada página pública tiene H1 claro.
+
+La IA puede mejorar un prompt.
+
+La IA puede sugerir títulos.
+
+La IA puede sugerir categorías.
+
+La IA puede generar variantes.
+
+La app funciona en móvil.
+
+La app funciona en escritorio.
+
+Los errores principales están controlados.
+
+Los estados vacíos son claros.
+
+16. Tareas pequeñas recomendadas
+
+Las tareas deben ser pequeñas, concretas y verificables.
+
+Orden recomendado:
+
+Definir propósito de la app.
+
+Definir propuesta de valor.
+
+Definir usuario objetivo.
+
+Cerrar alcance del MVP.
+
+Separar funciones futuras.
+
+Crear estructura de navegación.
+
+Crear home pública.
+
+Crear registro visual.
+
+Crear login visual.
+
+Crear dashboard visual.
+
+Crear biblioteca visual.
+
+Crear formulario de crear prompt.
+
+Crear formulario de editar prompt.
+
+Crear detalle privado del prompt.
+
+Crear página pública del prompt.
+
+Crear perfil básico.
+
+Crear estados vacíos.
+
+Crear errores básicos.
+
+Validar navegación visual.
+
+Definir datos de usuario.
+
+Definir datos de prompt.
+
+Definir datos SEO.
+
+Decidir categorías.
+
+Activar registro.
+
+Activar login.
+
+Activar cierre de sesión.
+
+Proteger rutas privadas.
+
+Crear estructura de base de datos.
+
+Asociar prompts a usuario.
+
+Guardar prompts.
+
+Listar prompts del usuario.
+
+Ver detalle real del prompt.
+
+Editar prompts.
+
+Eliminar prompts.
+
+Marcar favoritos.
+
+Buscar prompts.
+
+Filtrar prompts.
+
+Activar público/privado.
+
+Generar slug.
+
+Crear página pública real.
+
+Bloquear acceso público a privados.
+
+Añadir SEO básico.
+
+Añadir función mejorar prompt con IA.
+
+Añadir función sugerir título con IA.
+
+Añadir función sugerir categoría con IA.
+
+Añadir función generar variantes con IA.
+
+Pulir textos.
+
+Pulir errores.
+
+Pulir responsive.
+
+Revisar privacidad.
+
+Revisar entorno online.
+
+Validar con usuarios.
+
+Cerrar primera versión publicable.
+
+17. Reglas para trabajar con IA o vibe coding
+
+No generar toda la aplicación de golpe.
+
+Trabajar fase por fase.
+
+Pedir primero plan.
+
+Después estructura.
+
+Después pantallas.
+
+Después autenticación.
+
+Después base de datos.
+
+Después CRUD.
+
+Después búsqueda y filtros.
+
+Después parte pública.
+
+Después IA.
+
+Después pulido.
+
+Después despliegue.
+
+No añadir funcionalidades nuevas sin revisar el alcance.
+
+No aceptar cambios grandes sin explicación.
+
+Antes de cambiar arquitectura, modelo de datos o funcionalidades principales, preguntar.
+
+Explicar cada cambio de forma sencilla.
+
+No usar lenguaje excesivamente técnico si no es necesario.
+
+No sobrecomplicar la solución.
+
+Priorizar que la aplicación funcione antes de que parezca sofisticada.
+
+18. Criterio final de producto
+
+PromptStore no tiene que ser la mejor aplicación de prompts del mundo en su primera versión.
+
+Debe hacer bien cuatro cosas:
+
+Guardar prompts.
+
+Encontrarlos rápido.
+
+Mejorarlos con IA.
+
+Compartirlos públicamente cuando convenga.
+
+Si esas cuatro cosas funcionan de forma clara, rápida y fiable, la primera versión tiene sentido.
+
+Todo lo demás puede esperar.
+"""
+
+path = Path("/mnt/data/readem.txt")
+path.write_text(content, encoding="utf-8")
+
+path.as_posix()

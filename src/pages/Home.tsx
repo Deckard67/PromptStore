@@ -6,10 +6,35 @@ const features = [
   { title: 'Comparte con URL', description: 'Publica tus mejores prompts con una página clara y lista para SEO.' },
 ];
 
+const maintenanceModeFromEnv = import.meta.env.VITE_MAINTENANCE_MODE === 'true';
+const maintenanceModeFromQuery = typeof window !== 'undefined'
+  ? new URLSearchParams(window.location.search).get('maintenance') === '1'
+  : false;
+const maintenanceMode = maintenanceModeFromEnv || maintenanceModeFromQuery;
+const maintenanceMessage = import.meta.env.VITE_MAINTENANCE_MESSAGE || 'Estamos en mantenimiento. Vuelve en unos minutos.';
+
 export function Home() {
   return (
     <div style={{ minHeight: '100vh', background: '#f4f3ef' }}>
       <div style={{ maxWidth: 1180, margin: '0 auto', padding: '42px 22px' }}>
+        {maintenanceMode && (
+          <div
+            style={{
+              margin: '0 auto 18px',
+              maxWidth: 560,
+              padding: '10px 14px',
+              borderRadius: 10,
+              background: 'oklch(95% 0.04 85)',
+              color: 'oklch(35% 0.09 85)',
+              fontSize: 14,
+              lineHeight: 1.5,
+              border: '1px solid oklch(85% 0.08 85)',
+            }}
+          >
+            {maintenanceMessage}
+          </div>
+        )}
+
         <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, marginBottom: 36 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <div style={{ width: 36, height: 36, borderRadius: 11, background: '#5b50e0', color: '#fff', display: 'grid', placeItems: 'center', fontWeight: 800 }}>P</div>
@@ -48,6 +73,11 @@ export function Home() {
               </div>
             ))}
           </div>
+
+          <span id="demo-secret" style={{ display: 'none' }}>
+            {import.meta.env.VITE_DEMO_SECRET}
+          </span>
+
         </section>
       </div>
     </div>
