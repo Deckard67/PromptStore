@@ -31,41 +31,20 @@ const metricCards = (metrics: DashboardMetrics) => [
   },
 ]
 
-const isMissingTableError = (error: { code?: string; message?: string }) =>
-  error.code === '42P01' ||
-  error.code === 'PGRST205' ||
-  error.message?.toLowerCase().includes('could not find the table')
+const loadDashboardMetrics = async (): Promise<DashboardMetrics> => {
+  const { data, error } = await supabase.functions.invoke<DashboardMetrics>('dashboard-metrics', {
+    method: 'GET',
+  })
 
-const loadMetricsFromSupabase = async (userId: string): Promise<DashboardMetrics> => {
-  const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
-  const [promptsResult, aiUsageResult] = await Promise.all([
-    supabase
-      .from('prompts')
-      .select('id, favorite, public')
-      .eq('user_id', userId),
-    supabase
-      .from('ai_usages')
-      .select('id', { count: 'exact', head: true })
-      .eq('user_id', userId)
-      .gte('created_at', since),
-  ])
-
-  if (promptsResult.error) {
-    throw promptsResult.error
+  if (error) {
+    throw new Error(error.message || 'No se pudieron cargar las métricas.')
   }
 
-  if (aiUsageResult.error && !isMissingTableError(aiUsageResult.error)) {
-    throw aiUsageResult.error
+  if (!data) {
+    throw new Error('No se pudieron cargar las métricas.')
   }
 
-  const prompts = promptsResult.data ?? []
-
-  return {
-    totalPrompts: prompts.length,
-    favoritePrompts: prompts.filter((prompt) => prompt.favorite).length,
-    publicPrompts: prompts.filter((prompt) => prompt.public).length,
-    aiUsageLast24h: aiUsageResult.error ? 0 : aiUsageResult.count ?? 0,
-  }
+  return data
 }
 
 export function DashboardList({ initialMetrics }: DashboardListProps) {
@@ -78,15 +57,7 @@ export function DashboardList({ initialMetrics }: DashboardListProps) {
     setError('')
 
     try {
-      const { data: sessionData, error: sessionError } = await supabase.auth.getSession()
-
-      if (sessionError || !sessionData.session) {
-        throw new Error('Necesitas iniciar sesión para cargar las métricas.')
-      }
-
-      const data = await loadMetricsFromSupabase(sessionData.session.user.id)
-
-      setMetrics(data)
+      setMetrics(await loadDashboardMetrics())
     } catch (loadError) {
       setError(loadError instanceof Error ? loadError.message : 'No se pudieron cargar las métricas.')
     } finally {
