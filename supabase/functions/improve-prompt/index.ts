@@ -162,6 +162,16 @@ Deno.serve(async (req) => {
     }
 
     const result = await improvePrompt({ ...payload, content })
+
+    const { error: usageError } = await supabase.from('ai_usages').insert({
+      user_id: userData.user.id,
+      action: 'improve-prompt',
+    })
+
+    if (usageError) {
+      console.error('ai usage tracking error', usageError)
+    }
+
     return jsonResponse(result)
   } catch (error) {
     console.error('improve-prompt error', error)
